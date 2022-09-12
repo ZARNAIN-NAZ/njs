@@ -206,22 +206,24 @@
 // app.listen(4000)
 //--------------------------------middleware----------------------------------------
 const express = require('express')
+const reqfilter = require("./middleware")
 const app = express()
+const route= express.Router( )
 
-const reqfilter = (req,res,next)=>{
+// const reqfilter = (req,res,next)=>{
     // console.log(reqfilter)
-    if(!req.query.age){
-res.send("please provide age")
-    }
-    else if(req.query.age<18){
-res.send("you cant access the account ")
-    }
-   else{
-    next()
-   }
-}
+//     if(!req.query.age){
+// res.send("please provide age")
+//     }
+//     else if(req.query.age<18){
+// res.send("you cant access the account ")
+//     }
+//    else{
+//     next()
+//    }
+// }
 
-app.use(reqfilter)
+route.use(reqfilter);
 app.get("/" , (req,res)=>{
     res.send("Welcome to home page")
 })
@@ -229,7 +231,13 @@ app.get("/" , (req,res)=>{
 app.get("/users" , (req,res)=>{
     res.send("welcome to users page")
 })
-
-
-
+route.get("/about" , (req,res)=>{
+    res.send("welcome to about  page")
+})
+route.get("/contact" , (req,res)=>{
+    res.send("welcome to  contact page")
+})
+app.use("/" , route)
 app.listen(5000)
+
+
