@@ -124,7 +124,7 @@
 // })
 // w.then((data)=>{
 //     b=data;
-    
+
 //  console.log(a+b)
 // })
 // console.log(a+b)
@@ -148,11 +148,11 @@
 //     res.send("hello , this is about page!")
 //     })
 //     app.listen(5000)
-    //====================render html and json--------------------------
-    // const express =require('express')
+//====================render html and json--------------------------
+// const express =require('express')
 //     const app = express()
 //     app.get("" , (req, res)=>{
-        
+
 //         res.send(`<h1>hello this is home page <h1> <a href= "/about"> GO TO ABOUT</a> `)
 //     });
 //         app.get("/about" , (req, res)=>{
@@ -177,7 +177,7 @@
 // const app  = express()
 // // console.log(__dirname)
 // const publicpath = path.join(__dirname , "public")
- 
+
 // app.set("view engine" , "ejs")
 // // app.use(express.static(publicpath))
 // app.get('/home',(req,res)=>{
@@ -211,7 +211,7 @@
 // const route= express.Router( )
 
 // const reqfilter = (req,res,next)=>{
-    // console.log(reqfilter)
+// console.log(reqfilter)
 //     if(!req.query.age){
 // res.send("please provide age")
 //     }
@@ -240,16 +240,37 @@
 // app.use("/" , route)
 // app.listen(5000)
 //---------------------connect node with mongodb---------------
-const{ MongoClient, Collection } = require("mongodb")
-// const mongoClient= require("mongodb").mongoClient
-const url=  "mongodb://localhost:27017"
-const client  = new MongoClient(url);
-const database = "e-comm"
- async function getData(){
-    let result = await client.connect();
-    let  db =  result.db(database);
-    let  collection=db.collection("products")
-    let response= await collection.find({}).toArray()
-    console.log(response)
-}
-getData();
+// const { MongoClient, Collection, Db } = require("mongodb")
+// // const mongoClient= require("mongodb").mongoClient
+// const url = "mongodb://localhost:27017"
+// const client = new MongoClient(url);
+// const database = "e-comm"
+
+
+//  async function getData(){
+//     let result = await client.connect();
+//     let  db =  result.db(database);
+//     let  collection=db.collection("products")
+//     let response= await collection.find({name:"n.40"}).toArray()
+//     console.log(response)
+// }
+// getData();
+const dbconnect =require("./monogodb")
+// async function dbconnect() {
+//     let result = await client.connect();
+//     db = result.db(database);
+//     return db.collection("products")
+// }
+dbconnect().then((res) => {
+    // console.log(res.find().toArray())
+    res.find({ brand: "samsung" }).toArray().then((data) => {
+        console.log(data)
+    })
+})
+
+// const main= async()=>{
+// let data= await dbconnect()
+// data =await  data.find().toArray();
+// console.log(data)
+// }
+// main()
