@@ -205,10 +205,10 @@
 // })
 // app.listen(4000)
 //--------------------------------middleware----------------------------------------
-const express = require('express')
-const reqfilter = require("./middleware")
-const app = express()
-const route= express.Router( )
+// const express = require('express')
+// const reqfilter = require("./middleware")
+// const app = express()
+// const route= express.Router( )
 
 // const reqfilter = (req,res,next)=>{
     // console.log(reqfilter)
@@ -223,21 +223,33 @@ const route= express.Router( )
 //    }
 // }
 
-route.use(reqfilter);
-app.get("/" , (req,res)=>{
-    res.send("Welcome to home page")
-})
+// route.use(reqfilter);
+// app.get("/" , (req,res)=>{
+//     res.send("Welcome to home page")
+// })
 
-app.get("/users" , (req,res)=>{
-    res.send("welcome to users page")
-})
-route.get("/about" , (req,res)=>{
-    res.send("welcome to about  page")
-})
-route.get("/contact" , (req,res)=>{
-    res.send("welcome to  contact page")
-})
-app.use("/" , route)
-app.listen(5000)
-
-
+// app.get("/users" , (req,res)=>{
+//     res.send("welcome to users page")
+// })
+// route.get("/about" , (req,res)=>{
+//     res.send("welcome to about  page")
+// })
+// route.get("/contact" , (req,res)=>{
+//     res.send("welcome to  contact page")
+// })
+// app.use("/" , route)
+// app.listen(5000)
+//---------------------connect node with mongodb---------------
+const{ MongoClient, Collection } = require("mongodb")
+// const mongoClient= require("mongodb").mongoClient
+const url=  "mongodb://localhost:27017"
+const client  = new MongoClient(url);
+const database = "e-comm"
+ async function getData(){
+    let result = await client.connect();
+    let  db =  result.db(database);
+    let  collection=db.collection("products")
+    let response= await collection.find({}).toArray()
+    console.log(response)
+}
+getData();
