@@ -241,7 +241,8 @@
 // app.listen(5000)
 //---------------------connect node with mongodb---------------
 // const { MongoClient, Collection, Db } = require("mongodb")
-// // const mongoClient= require("mongodb").mongoClient
+// const mongoClient= require("mongodb").mongoClient
+const dbconnect =require("./mongodb")
 // const url = "mongodb://localhost:27017"
 // const client = new MongoClient(url);
 // const database = "e-comm"
@@ -255,7 +256,7 @@
 //     console.log(response)
 // }
 // getData();
-const dbconnect =require("./monogodb")
+
 // async function dbconnect() {
 //     let result = await client.connect();
 //     db = result.db(database);
@@ -268,9 +269,9 @@ dbconnect().then((res) => {
     })
 })
 
-// const main= async()=>{
-// let data= await dbconnect()
-// data =await  data.find().toArray();
-// console.log(data)
-// }
-// main()
+const main= async()=>{
+let data= await dbconnect()
+data =await  data.find().toArray();
+console.log(data)
+}
+main()
