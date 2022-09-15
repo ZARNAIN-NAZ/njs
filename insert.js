@@ -20,7 +20,8 @@ var result = await db.insertMany(
 {
 
     name :"oppo",
-    price:10000,
+    brand : "oppo"
+,    price:10000,
     version:2.343
 }])
 
