@@ -1,6 +1,7 @@
 const express = require("express")
 const dbconnect =require("./mongodb")
 const app = express()
+app.use(express.json)
 app.get("/", async(req,res)=>{
     let  data =await dbconnect()
     data = await data.find().toArray()
@@ -8,4 +9,13 @@ app.get("/", async(req,res)=>{
 res.send({data})
 
 })
-app.listen(4000)
+
+
+app.post("/" , async(req,res)=>{
+    // console.log(req.body)
+    let data =await dbconnect();
+let result = data.insertOne(req.body)
+    
+    res.send(result)
+})
+app.listen(5000)
