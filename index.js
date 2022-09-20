@@ -242,7 +242,8 @@
 //---------------------connect node with mongodb---------------
 // const { MongoClient, Collection, Db } = require("mongodb")
 // const mongoClient= require("mongodb").mongoClient
-const dbconnect =require("./mongodb")
+
+// const dbconnect =require("./mongodb")
 // const url = "mongodb://localhost:27017"
 // const client = new MongoClient(url);
 // const database = "e-comm"
@@ -262,16 +263,30 @@ const dbconnect =require("./mongodb")
 //     db = result.db(database);
 //     return db.collection("products")
 // }
-dbconnect().then((res) => {
-    // console.log(res.find().toArray())
-    res.find({ brand: "samsung" }).toArray().then((data) => {
-        console.log(data)
-    })
-})
+// dbconnect().then((res) => {
+//     // console.log(res.find().toArray())
+//     res.find({ brand: "samsung" }).toArray().then((data) => {
+//         console.log(data)
+//     })
+// })
 
-const main= async()=>{
-let data= await dbconnect()
-data =await  data.find().toArray();
-console.log(data)
-}
-main()
+// const main= async()=>{
+// let data= await dbconnect()
+// data =await  data.find().toArray();
+// console.log(data)
+// }
+// main()
+// ---------------------------mongoose---------------
+const mongoose = require("mongoose")
+ const main= async ()=>{
+await mongoose.connect("mongodb://localhost:27017/e-comm")
+const productSchema = new mongoose.Schema({
+    name:String,
+    brand:String
+})
+const productsModel = mongoose.model("products" , productSchema)
+let data = new productsModel({name:"m8" , brand :"iphone"})
+let result = await data.save()
+console.log(result)
+ }
+ main()
