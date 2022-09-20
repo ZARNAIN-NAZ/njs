@@ -277,46 +277,61 @@
 // }
 // main()
 // ---------------------------mongoose---------------
-const mongoose = require("mongoose")
-// const saveindb = async () => {
-     mongoose.connect("mongodb://localhost:27017/e-comm")
-    const productSchema = new mongoose.Schema({
-        name: String,
-        price:Number,
-        catogory : String,
-        brand: String
-    })
-    const saveindb = async () => {
-    const productsModel = mongoose.model("products", productSchema)
-    let data = new productsModel({ name: "moto", price:56000,catogory:"motoe4", brand: "moto" })
-    let result = await data.save()
-    console.log(result)
-}
-// --------------updAte in db ---------------
-const updateInDb = async()=>{
-    let product  =  mongoose.model("products" , productSchema)
-    let data =await product.updateOne(
-       { name:"moto"},
- {$set:{price:700}}
-    )
-    console.log(data)
-}
+// const mongoose = require("mongoose")
+// // const saveindb = async () => {
+//      mongoose.connect("mongodb://localhost:27017/e-comm")
+//     const productSchema = new mongoose.Schema({
+//         name: String,
+//         price:Number,
+//         catogory : String,
+//         brand: String
+//     })
+//     const saveindb = async () => {
+//     const productsModel = mongoose.model("products", productSchema)
+//     let data = new productsModel({ name: "moto", price:56000,catogory:"motoe4", brand: "moto" })
+//     let result = await data.save()
+//     console.log(result)
+// }
+// // --------------updAte in db ---------------
+// const updateInDb = async()=>{
+//     let product  =  mongoose.model("products" , productSchema)
+//     let data =await product.updateOne(
+//        { name:"moto"},
+//  {$set:{price:700}}
+//     )
+//     console.log(data)
+// }
 // updateInDb()
 
-//----------------delete in db--------------------------------------------
-const DeleteInDb = async()=>{
-    let product = mongoose.model("products " , productSchema)
-let data = await product.deleteOne({
-    name:"oppo"
-})
-console.log(data)
-}
-// DeleteInDb()
+// //----------------delete in db--------------------------------------------
+// const DeleteInDb = async()=>{
+//     let product = mongoose.model("products " , productSchema)
+// let data = await product.deleteOne({
+//     name:"oppo"
+// })
+// console.log(data)
+// }
+// // DeleteInDb()
 
-//-----------------------------find in db---------------------
-const FindInDb = async()=>{
-let product = mongoose.model("products" , productSchema)
-let data = await product.find({name:"oppo"})
-console.log(data)
-}
-FindInDb()
+// //-----------------------------find in db---------------------
+// const FindInDb = async()=>{
+// let product = mongoose.model("products" , productSchema)
+// let data = await product.find({name:"oppo"})
+// console.log(data)
+// }
+// FindInDb()
+// ----------------api connenction with diiff pages--------
+const express = require("express")
+require("./config")
+const product =require("./product")
+const app = express()
+// app.use(express.json())
+app.post("/create",async(req,res)=>{
+    // let data = new  product(req.body)
+    // let result =await data.save()
+    // console.log(req.body)
+    // res.send(result)
+    // res.send("finally")
+    // res.send("done")
+})
+app.listen(5000)
