@@ -354,19 +354,41 @@
 //     })
 // app.listen(5000) 
 //---------------search api's with nodejs mongodb----------------------------------------
-const express = require('express')
-require("./config")
-const product= require("./product")
-const app = express();
-app.use(express.json())
-app.get("/search/:key" , async (req,res)=>{
-    // cosnole.log(req.params.key)
-    let data =await  product.find(
+// const express = require('express')
+// require("./config")
+// const product= require("./product")
+// const app = express();
+// app.use(express.json())
+// app.get("/search/:key" , async (req,res)=>{
+//     // cosnole.log(req.params.key)
+//     let data =await  product.find(
+//         {
+//             "$or":[{"name":{$regex:req.params.key}},{"brand":{$regex:req.params.key}}]
+//         }
+//     )
+//     // res.send("serach done")
+//     res.send(data)
+// })
+// app.listen(5000)
+//---------------------upload file with multer----------------
+const express= require("express")
+const multer = require("multer")
+const app = express()
+
+const upload = multer({
+    storage:multer.diskStorage({
+        destination:function(req,file,cb)
         {
-            "$or":[{"name":{$regex:req.params.key}},{"brand":{$regex:req.params.key}}]
+            cb(null,"uploads")
+        },
+            filename:function(req,file,cb)
+        {
+            cb(null,file.fieldname+ "-" +Date.now()+ ".jpg")
         }
-    )
-    // res.send("serach done")
-    res.send(data)
+    })
+}).single("user_file");
+
+app.post("/upload",upload , (req,res)=>{
+    res.send("file uploading")
 })
 app.listen(5000)
